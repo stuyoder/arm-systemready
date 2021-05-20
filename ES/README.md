@@ -1,4 +1,4 @@
-# SystemReady ES ACS 
+# SystemReady ES ACS
 
 
 ## Introduction to SystemReady ES
@@ -7,20 +7,20 @@ SystemReady ES - Embedded Server, is a band of system certification in the Arm S
 SystemReady ES-certified platforms implement a minimum set of hardware and firmware features that an operating system can depend on to deploy the operating system image. Compliant systems must conform to the:
 * [Base System Architecture (BSA) specification](https://developer.arm.com/documentation/den0094/latest)
 * SBBR recipe of the [Base Boot Requirements (BBR) specification](https://developer.arm.com/documentation/den0044/latest)
-The SystemReady ES certification and testing requirements are specified in the [Arm SystemReady Requirements Specification (SRS)](https://developer.arm.com/documentation/den0109/latest)
+* The SystemReady ES certification and testing requirements are specified in the [Arm SystemReady Requirements Specification (SRS)](https://developer.arm.com/documentation/den0109/latest)
 
 This section contains the build scripts and the live-images for the SystemReady ES Band.
 
 ## Release details
- - Code Quality: REL v1.0 BETA-1
- - **The latest pre-built release of ACS is available for download here: [v21.05_REL1.0_BETA-1](https://github.com/ARM-software/arm-systemready-acs/tree/release/ES/prebuilt_images/v21.05_REL1.0_BETA-1)**
+ - Code Quality: v0.5 Alpha
+ - **The latest pre-built release of ACS is available for download here: [v21.05_0.5_ALPHA](https://github.com/ARM-software/arm-systemready-acs/tree/release/ES/prebuilt_images/v21.05_0.5_ALPHA)**
  - The BSA tests are written for version 1.0 of the BSA specification.
  - The BBR tests are written for version 1.0 of the BBR specification.
  - The compliance suite is not a substitute for design verification.
  - To review the ACS logs, Arm licensees can contact Arm directly through their partner managers.
 
 
-## Steps to  build SystemReady ES ACS live image
+## Steps to build SystemReady ES ACS live image
 
 ## GitHub branch
 - To pick up the release version of the code, checkout the release branch with the appropriate tag.
@@ -38,23 +38,21 @@ Before starting the ACS build, ensure that the following requirements are met:
  - Ubuntu 18.04 LTS with at least 64GB of free disk space.
  - Must use Bash shell.
  - User should have **sudo** privilege to install tools required for build
- 
+
 ### Steps to build SystemReady ES ACS live image
 1. Clone the [Arm-SystemReady](https://github.com/ARM-software/arm-systemready-acs) repo.
 
-2. Navigate to the ES/scripts directory
- cd arm-systemready/ES/scripts
+2. Navigate to the ES/scripts directory <br />
+ `cd arm-systemready/ES/scripts`
 
-3. Run get_source.sh to download all related source for the build. Provide the sudo permission when prompted
- ./build-scripts/get_source.sh
- (Downloads source & tools required , give **sudo** password to install  depended tools )
+3. Run get_source.sh to download all related sources and tools for the build. Provide the sudo permission when prompted <br />
+ `./build-scripts/get_source.sh` <br />
 
-4. To start the build of the ES ACS live image, execute the below step
- ./build-scripts/build-es-live-image.sh
+4. To start the build of the ES ACS live image, execute the below step <br />
+ `./build-scripts/build-es-live-image.sh`
 
-5. The bootable image will be available in **/path-to-arm-systemready/ES/scripts/output** , if all of above steps are success.
-filename: ES_acs_live_image.img
- 
+5. If all of above steps are successful, the bootable image will be available at **/path-to-arm-systemready/ES/scripts/output/es_acs_live_image.img**
+
 ## Build output
 This image comprises of two FAT file system partitions recognized by UEFI: <br />
 - 'acs-results' <br />
@@ -68,24 +66,11 @@ This image comprises of two FAT file system partitions recognized by UEFI: <br /
 Note: UEFI EDK2 setting for "Console Preference": The default is "Graphical". When that is selected, Linux output will go only to the graphical console (HDMI monitor). In order to force serial console output, you need to change the "Console Preference" to "Serial".
 
 ### Verification of the ES Image on Qemu
+ACS is tested using Qemu 6.0 version. <br />
 Command to boot with qemu :
-    sudo qemu-system-aarch64 -nographic -cpu cortex-a53 -M virt -m 1024 -bios (**path to QEMU_EFI**)/qemu-efi/QEMU_EFI.fd -drive if=virtio,format=raw,file=(**path to image**)/es_acs_live_image.img
+    `sudo qemu-system-aarch64 -nographic -cpu cortex-a53 -M virt -m 1024 -bios (**path to QEMU_EFI**)/qemu-efi/QEMU_EFI.fd -drive if=virtio,format=raw,file=(**path to image**)/es_acs_live_image.img`
 
    Note: qemu for aarch64 must be installed  before running above command  by `sudo apt-get install qemu-utils qemu-efi qemu-system-arm`
-
-### Verification of the ES Image on Fixed Virtual Platform (FVP) environment
-
-The steps for running the ES ACS on an FVP are
-
-  - Modify 'run_model.sh' to add a model command argument that loads 'ir_acs_live_image.img' as a virtual disk image. For example, add
-
-    `bp.virtioblockdevice.image path=<path to es image>/es_acs_live_image.img`
-
-    to your model options.
-    Or,
-  - To launch the FVP model with script â€˜run_model.shâ€™ that supports -v option for virtual disk image, use the following command:
-   `./run_model.sh -v <path to es imag>/es_acs_live_image.img`
-
 
 ### Automation
 The test suite execution can be automated or manual. Automated execution is the default execution method when no key is pressed during boot. <br />
@@ -108,6 +93,8 @@ The live image boots to UEFI Shell. The different test applications can be run i
 ## Security Implication
 Arm SystemReady ES ACS test suite may run at higher privilege level. An attacker may utilize these tests as a means to elevate privilege which can potentially reveal the platform security assets. To prevent the leakage of secure information, it is strongly recommended that the ACS test suite is run only on development platforms. If it is run on production systems, the system should be scrubbed after running the test suite.
 
+## License
+System Ready ACS is distributed under Apache v2.0 License.
 
 ## Feedback, contributions, and support
 
@@ -116,3 +103,6 @@ Arm SystemReady ES ACS test suite may run at higher privilege level. An attacker
  - Arm licensees can contact Arm directly through their partner managers.
  - Arm welcomes code contributions through GitHub pull requests.
 
+--------------
+
+*Copyright (c) 2021, Arm Limited and Contributors. All rights reserved.*

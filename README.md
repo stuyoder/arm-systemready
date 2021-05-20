@@ -1,5 +1,5 @@
 # Arm SystemReady ACS
-  
+
 ## Arm SystemReady Introduction
 Systems that are designed to just work for the end user – with the ability to install and run generic, off-the-shelf operating systems out of the box – must follow a set of minimum hardware and firmware requirements.
 
@@ -9,7 +9,7 @@ The Arm SystemReady program is a natural extension of the Arm ServerReady progra
 * [SystemReady SR](https://developer.arm.com/architectures/system-architectures/arm-systemready/sr)
 * [SystemReady LS](https://developer.arm.com/architectures/system-architectures/arm-systemready/ls)
 * [SystemReady ES](https://developer.arm.com/architectures/system-architectures/arm-systemready/es)
-* [SystemReady IR](https://developer.arm.com/architectures/system-architectures/arm-systemready/es)
+* [SystemReady IR](https://developer.arm.com/architectures/system-architectures/arm-systemready/ir)
 
 For more informaton, please visit: [Arm SystemReady](https://developer.arm.com/architectures/system-architectures/arm-systemready)
 
@@ -18,12 +18,23 @@ Note:  Currently SystemReady ES and IR bands are supported in this repository
 
 For SystemReady SR, please refer to the [Arm Enterprise ACS repository](https://github.com/ARM-software/arm-enterprise-acs)
 
-## ACS Infrastructure and Prebuilt Images
-Please navigate to the ES or IR band, specific scripts and prebuilt images, through the directories below:
-* [ES](https://github.com/ARM-software/arm-systemready/tree/main/ES)
-* [IR](https://github.com/ARM-software/arm-systemready/tree/main/IR)
+## System Ready bands:
+Please navigate to the ES or IR band for further details on specific scripts and prebuilt images, through the directories below:
+* [ES](./ES)
+* [IR](./IR)
 
 ## License
 
 Arm SystemReady ACS is distributed under Apache v2.0 License.
+
+## Feedback, contributions, and support
+
+ - For feedback, use the GitHub Issue Tracker that is associated with this repository.
+ - For support, please send an email to "support-systemready-acs@arm.com" with details.
+ - Arm licensees can contact Arm directly through their partner managers.
+ - Arm welcomes code contributions through GitHub pull requests.
+
+--------------
+
+*Copyright (c) 2021, Arm Limited and Contributors. All rights reserved.*
 
