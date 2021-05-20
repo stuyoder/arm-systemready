@@ -28,18 +28,6 @@
 
 echo -off
 
-for %i in 0 1 2 3 4 5 6 7 8 9 A B C D E F
-  if exist FS%i:\EFI\BOOT\debug then
-    FS%i:
-    cd FS%i:\EFI\BOOT\debug
-    echo Press any key to stop the EFI Debug dump
-    stallforkey.efi 5
-    if %lasterror% == 0 then
-      goto Done
-    endif
-  endif
-endfor
-
 for %m in 0 1 2 3 4 5 6 7 8 9 A B C D E F then
     if exist FS%m:\acs_results then
         FS%m:

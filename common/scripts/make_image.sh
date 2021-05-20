@@ -81,7 +81,6 @@ create_fatpart ()
     mcopy -i $fatpart_name $PLATDIR/ramdisk-busybox.img  ::/
     mcopy -i $fatpart_name Bsa.efi ::/EFI/BOOT/bsa
     mcopy -s -i $fatpart_name SCT/* ::/EFI/BOOT/bbr
-    mcopy -s -i $fatpart_name SCT/SCT/StallForKey.efi ::/EFI/BOOT/debug
     if [ "$BUILD_PLAT" = "IR" ]; then
       echo " IR BSA flag file copied"
       mcopy -i $fatpart_name ${TOP_DIR}/build-scripts/ir_bsa.flag ::/EFI/BOOT/bsa

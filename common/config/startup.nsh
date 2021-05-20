@@ -28,6 +28,27 @@
 
 echo -off
 
+for %i in 0 1 2 3 4 5 6 7 8 9 A B C D E F then
+    if exist FS%i:\EFI\BOOT\bbr\SctStartup.nsh then
+        FS%i:\EFI\BOOT\bbr\SctStartup.nsh
+        for %k in 0 1 2 3 4 5 6 7 8 9 A B C D E F then
+            if  exist FS%k:\acs_results\sct_results\ then
+                if  exist FS%i:\EFI\BOOT\bbr\SCT\Overall then
+                    cp -r FS%i:\EFI\BOOT\bbr\SCT\Overall FS%k:\acs_results\sct_results\
+                endif
+                if  exist FS%i:\EFI\BOOT\bbr\SCT\Dependency\EfiCompliantBBTest then
+                    cp -r FS%i:\EFI\BOOT\bbr\SCT\Dependency\EfiCompliantBBTest FS%k:\acs_results\sct_results\
+                endif
+                if  exist FS%i:\EFI\BOOT\bbr\SCT\Sequence then
+                    cp -r FS%i:\EFI\BOOT\bbr\SCT\Sequence FS%k:\acs_results\sct_results\
+                endif
+            endif
+        endfor
+        goto Donebbr
+    endif
+endfor
+:Donebbr
+
 for %p in 0 1 2 3 4 5 6 7 8 9 A B C D E F then
     if exist FS%p:\EFI\BOOT\debug\debug_dump.nsh then
         FS%p:\EFI\BOOT\debug\debug_dump.nsh
@@ -36,21 +57,6 @@ for %p in 0 1 2 3 4 5 6 7 8 9 A B C D E F then
 endfor
 :DoneDebug
 
-for %i in 0 1 2 3 4 5 6 7 8 9 A B C D E F then
-    if exist FS%i:\EFI\BOOT\bbr\SctStartup.nsh then
-        FS%i:\EFI\BOOT\bbr\SctStartup.nsh
-        for %k in 0 1 2 3 4 5 6 7 8 9 A B C D E F then
-            if  exist FS%k:\acs_results\sct_results\ then
-                cp -r FS%i:\EFI\BOOT\bbr\SCT\Overall FS%k:\acs_results\sct_results\
-                cp -r FS%i:\EFI\BOOT\bbr\SCT\Dependency\EfiCompliantBBTest FS%k:\acs_results\sct_results\
-                cp -r FS%i:\EFI\BOOT\bbr\SCT\Sequence FS%k:\acs_results\sct_results\
-            endif
-        endfor
-        goto Donebbr
-    endif
-endfor
-
-:Donebbr
 for %j in 0 1 2 3 4 5 6 7 8 9 A B C D E F then
     if exist FS%j:\EFI\BOOT\bsa\bsa.nsh then
         FS%j:\EFI\BOOT\bsa\bsa.nsh
