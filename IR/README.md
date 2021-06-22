@@ -4,16 +4,15 @@
 SystemReady IR - IoT, is a band of system certification in the Arm SystemReady program. This certification is for devices in the IoT edge sector that are built around SoCs based on the Arm A-profile architecture. It ensures interoperability with embedded Linux and other embedded operating systems.
 
 SystemReady IR-certified platforms implement a minimum set of hardware and firmware features that an operating system can depend on to deploy the operating system image. Compliant systems must conform to the:
-* [Arm Base System Architecture (BSA) specification](https://developer.arm.com/documentation/den0094/latest)
 * [Embedded Base Boot Requirements (EBBR)](https://developer.arm.com/architectures/platform-design/embedded-systems)
 * EBBR recipe of the [Arm Base Boot Requirements (BBR) specification](https://developer.arm.com/documentation/den0044/latest)
 * SystemReady IR certification and testing requirements are specified in the [Arm SystemReady Requirements Specification (SRS)](https://developer.arm.com/documentation/den0109/latest)
 
-This section contains the build scripts and the live-images for the SystemReady IR Band.
+This section of the repository contains the build scripts and the live-images for the SystemReady IR Band.
 
 ## Release details
  - Code Quality: v0.8 BETA-0
- - **The latest pre-built release of ACS is available for download here: [v21.05_0.8_BETA-0](https://github.com/ARM-software/arm-systemready-acs/tree/release/IR/prebuilt_images/v21.05_0.8_BETA-0)**
+ - **The latest pre-built release of IR ACS is available for download here: [v21.05_0.8_BETA-0](prebuilt_images/v21.05_0.8_BETA-0)**
  - The BSA tests are written for version 1.0 of the BSA specification.
  - The BBR tests are written for version 1.0 of the BBR specification.
  - The compliance suite is not a substitute for design verification.
@@ -22,25 +21,28 @@ This section contains the build scripts and the live-images for the SystemReady 
 
 ## Steps to build SystemReady IR ACS live image
 
-## GitHub branch
-- To pick up the release version of the code, checkout the release branch with the appropriate tag.
-- To get the latest version of the code with bug fixes and new features, use the master branch.
+## Code download
+- To build a release version of the code, checkout the main branch with the appropriate release tag.
+- To build the latest version of the code with bug fixes and new features, use the main branch.
 
 ## ACS build steps
 
 ### Prebuilt images
-- Prebuilt images for each release are available in the prebuilt_images folder of the release branch. You can either choose to use these images or build your own image by following the steps below.
-- To access the prebuilt_images, click this link : [prebuilt_images](https://github.com/ARM-software/arm-systemready-acs/tree/release/IR/prebuilt_images/)
-- If you choose to use the prebuilt image, skip the build steps and jump to the test suite execution section below.
+- Prebuilt images for each release are available in the prebuilt_images folder. You can either choose to use these images or build your own image by following the steps below.
+- To access the prebuilt_images, click this link : [prebuilt_images](prebuilt_images/)
+- If you choose to use the prebuilt image, skip the build steps and jump to the "Verification" section below.
 
 ### Prerequisites
 Before starting the ACS build, ensure that the following requirements are met:
- - Ubuntu 18.04 LTS with at least 64GB of free disk space.
+ - Ubuntu 18.04 or 20.04 LTS with at least 64GB of free disk space.
  - Must use Bash shell.
  - User should have **sudo** privilege to install tools required for build
+ - Need to install `git` using `sudo apt install git`
+ - `git config --global user.name "Your Name"` and `git config --global user.email "Your Email"` must be configured.
 
 ### Steps to build SystemReady IR ACS live image
-1. Clone the [Arm-SystemReady](https://github.com/ARM-software/arm-systemready-acs) repo.
+1. Clone the arm-systemready repository <br />
+ `git clone https://github.com/ARM-software/arm-systemready.git`
 
 2. Navigate to the IR/scripts directory <br />
  `cd arm-systemready/IR/scripts`
@@ -56,7 +58,7 @@ Before starting the ACS build, ensure that the following requirements are met:
 ## Build output
 This image comprises of two FAT file system partitions recognized by UEFI: <br />
 - 'acs-results' <br />
-  Stores logs and is used to install UEFI-SCT. (Approximate size: 120 MB) <br/>
+  Stores logs of the automated execution of ACS. (Approximate size: 120 MB) <br/>
 - 'boot' <br />
   Contains bootable applications and test suites. (Approximate size: 400 MB)
 
@@ -68,24 +70,27 @@ Note: UEFI EDK2 setting for "Console Preference": The default is "Graphical". Wh
 ACS is tested using Qemu 6.0 version. <br />
 Command to boot with qemu :
    `qemu-system-aarch64 -bios <**Path to QEMU u-boot firmware**>/nor_flash.bin -cpu cortex-a57 -drive file=<**Path to IR live image**>/ir_acs_live_image.img,if=virtio,format=raw -m 2048 -machine virt,secure -monitor null -no-acpi -nodefaults -nographic -rtc base=utc,clock=host -serial stdio -smp 2 -accel tcg,thread=multi -d unimp,guest_errors`
-   Note: qemu for aarch64 must be installed  before running above command  by `sudo apt-get install qemu-utils qemu-efi qemu-system-arm`
+
+Note: qemu for aarch64 must be installed  before running above command  by `sudo apt-get install qemu-utils qemu-efi qemu-system-arm`
 
 ### Automation
 The test suite execution can be automated or manual. Automated execution is the default execution method when no key is pressed during boot. <br />
 The live image boots to UEFI Shell. The different test applications can be run in following order:
 
-1. [UEFI Shell application](https://github.com/ARM-software/bsa-acs/blob/master/README.md) for BSA compliance.
-2. [SCT tests](https://github.com/ARM-software/bbr-acs/blob/master/README.md) for BBR compliance.
+1. [SCT tests](https://github.com/ARM-software/bbr-acs/blob/master/README.md) for BBR compliance.
+2. [UEFI Shell application](https://github.com/ARM-software/bsa-acs/blob/master/README.md) for BSA compliance.
 3. [FWTS tests](https://github.com/ARM-software/bbr-acs/blob/master/README.md) for BBR compliance.
-4. [OS tests](https://github.com/ARM-software/bsa-acs/blob/master/README.md) for BSA compliance.
 
 ## Baselines for Open Source Software in this release:
 
-- [Firmware Test Suite (FWTS) TAG: V21.03.00](http://kernel.ubuntu.com/git/hwe/fwts.git)
+- [Firmware Test Suite (FWTS) TAG: V21.03.00](http://kernel.ubuntu.com/git/hwe/fwts.git) TAG: 2495b85c20944013949cab8ec6e8fad54b874308
 
-- [Server Base System Architecture (BSA)](https://github.com/ARM-software/bsa-acs) TAG: 1b3a37214fe6809e07e471f79d1ef856461bc803
+- [Base System Architecture (BSA)](https://github.com/ARM-software/bsa-acs) TAG: v21.05_0.5_ALPHA
 
-- [UEFI Self Certification Tests (UEFI-SCT)](https://github.com/tianocore/edk2-test) TAG: b558bad25479ec83d43399673d7580294c81c8f8
+- [Base Boot Requirements (BBR)](https://github.com/ARM-software/bbr-acs) TAG: : v21.05_0.8_BETA-0
+
+- [UEFI Self Certification Tests (UEFI-SCT)](https://github.com/tianocore/edk2-test) TAG: 421a6997ef362c6286c4ef87d21d5367a9d1fb58
+
 
 
 ## Security Implication
