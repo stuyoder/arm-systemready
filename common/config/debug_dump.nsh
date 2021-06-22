@@ -40,9 +40,10 @@ for %m in 0 1 2 3 4 5 6 7 8 9 A B C D E F then
         pci > pci.log
         drivers > drivers.log
         devices > devices.log
-        dmpstore > dmpstore.log
+        dmpstore -all > dmpstore.log
         dh -d > dh.log
         memmap > memmap.log
+        bcfg boot dump > bcfg.log
 
         for %n in 0 1 2 3 4 5 6 7 8 9 A B C D E F then
                 if exist FS%n:\EFI\BOOT\bsa\ir_bsa.flag then
