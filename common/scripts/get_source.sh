@@ -32,7 +32,7 @@ TOP_DIR=`pwd`
 
 get_linux_src()
 {
-    git clone --depth 1 --branch v5.10 https://github.com/torvalds/linux.git linux-5.10
+    git clone --depth 1 --branch v5.11 https://github.com/torvalds/linux.git linux-5.11
 }
 
 get_busybox_src()
@@ -102,9 +102,9 @@ get_sct_src()
 get_linux-acs_src()
 {
   git clone --depth 1 ssh://ap-gerrit-1.ap01.arm.com:29418/avk/syscomp_linux_acs linux-acs
-  pushd $TOP_DIR/linux-5.10
+  pushd $TOP_DIR/linux-5.11
   echo "Applying Linux ACS Patch..."
-  git am $TOP_DIR/linux-acs/kernel/src/0001-BSA-SBSA-ACS-Linux-5.10.patch
+  git am $TOP_DIR/linux-acs/kernel/src/0001-BSA-SBSA-ACS-Linux-5.11.patch
   popd
 
 }
