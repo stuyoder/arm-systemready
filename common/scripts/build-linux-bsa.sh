@@ -28,12 +28,13 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-
 TOP_DIR=`pwd`
-GCC=tools/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-
+. $TOP_DIR/../../common/config/common_config.cfg
+
+GCC=tools/gcc-linaro-${LINARO_TOOLS_VERSION}-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-
 export CROSS_COMPILE=$TOP_DIR/$GCC
-export KERNEL_SRC=$TOP_DIR/linux-5.11/out
-LINUX_PATH=$TOP_DIR/linux-5.11
+export KERNEL_SRC=$TOP_DIR/linux-${LINUX_KERNEL_VERSION}/out
+LINUX_PATH=$TOP_DIR/linux-${LINUX_KERNEL_VERSION}
 BSA_PATH=$TOP_DIR/edk2/ShellPkg/Application/bsa-acs
 
 build_bsa_kernel_driver()

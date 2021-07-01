@@ -32,6 +32,7 @@
 # Generate the disk image for busybox boot
 #------------------------------------------
 
+
 #variables for image generation
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 TOP_DIR=`pwd`
@@ -178,7 +179,13 @@ prepare_disk_image ()
     rm -f BOOT
     rm -f RESULT
 
-    echo "Completed preparation of disk image for busybox boot"
+    echo "Compressing the image : $IMG_BB"
+    xz -z $IMG_BB
+
+    if [ -f $TOP_DIR/$GRUB_PATH/output/$IMG_BB.xz ]; then
+        echo "Completed preparation of disk image for busybox boot"
+        echo "Image path : $TOP_DIR/$GRUB_PATH/output/$IMG_BB.xz"
+    fi
     echo "----------------------------------------------------"
 }
 exit_fun() {

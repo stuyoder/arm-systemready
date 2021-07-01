@@ -55,9 +55,11 @@
 # LINUX_IMAGE_TYPE - Image or zImage (Image is the default if not specified)
 
 TOP_DIR=`pwd`
+. $TOP_DIR/../../common/config/common_config.cfg
+
 LINUX_ARCH=arm64
 LINUX_IMAGE_TYPE=Image
-GCC=tools/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-
+GCC=tools/gcc-linaro-${LINARO_TOOLS_VERSION}-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-
 CROSS_COMPILE=$TOP_DIR/$GCC
 
 do_build ()
