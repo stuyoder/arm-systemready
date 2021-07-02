@@ -66,7 +66,7 @@ popd
 PLATDIR=${TOP_DIR}/output
 OUTDIR=${PLATDIR}
 LINUX_OUT_DIR=out
-LINUX_PATH=linux-5.10
+LINUX_PATH=linux-5.11
 
 do_clean
 do_build
