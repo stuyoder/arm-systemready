@@ -104,7 +104,7 @@ get_linux-acs_src()
   git clone --depth 1 ssh://ap-gerrit-1.ap01.arm.com:29418/avk/syscomp_linux_acs linux-acs
   pushd $TOP_DIR/linux-5.11
   echo "Applying Linux ACS Patch..."
-  git am $TOP_DIR/linux-acs/kernel/src/0001-BSA-SBSA-ACS-Linux-5.11.patch
+  git am $TOP_DIR/linux-acs/kernel/src/0001-BSA-ACS-Linux-5.11.patch
   popd
 
 }
