@@ -100,8 +100,9 @@ get_grub_src()
 get_fwts_src()
 {
     echo "Downloading FWTS source code. TAG : ${FWTS_SRC_TAG}"
-    git clone --depth 1 --single-branch --branch $FWTS_SRC_TAG https://git.launchpad.net/fwts
+    git clone --single-branch https://git.launchpad.net/fwts
     pushd $TOP_DIR/fwts
+    git checkout $FWTS_SRC_TAG
     git submodule update --init
     popd
 }
