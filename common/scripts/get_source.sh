@@ -126,7 +126,7 @@ get_linux-acs_src()
   fi
   pushd $TOP_DIR/linux-${LINUX_KERNEL_VERSION}
   echo "Applying Linux ACS Patch..."
-  git am $TOP_DIR/linux-acs/kernel/src/0001-BSA-SBSA-ACS-Linux-${LINUX_KERNEL_VERSION}.patch
+  git am $TOP_DIR/linux-acs/kernel/src/0001-BSA-ACS-Linux-${LINUX_KERNEL_VERSION}.patch
   popd
 
 }

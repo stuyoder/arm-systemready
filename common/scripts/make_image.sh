@@ -179,12 +179,12 @@ prepare_disk_image ()
     rm -f BOOT
     rm -f RESULT
 
-    echo "Compressing the image : $IMG_BB"
-    xz -z $IMG_BB
+    echo "Compressing the image : $PLATDIR/$IMG_BB"
+    xz -z $PLATDIR/$IMG_BB
 
-    if [ -f $TOP_DIR/$GRUB_PATH/output/$IMG_BB.xz ]; then
+    if [ -f $PLATDIR/$IMG_BB.xz ]; then
         echo "Completed preparation of disk image for busybox boot"
-        echo "Image path : $TOP_DIR/$GRUB_PATH/output/$IMG_BB.xz"
+        echo "Image path : $PLATDIR/$IMG_BB.xz"
     fi
     echo "----------------------------------------------------"
 }
