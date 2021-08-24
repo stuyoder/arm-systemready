@@ -327,7 +327,7 @@ The two logs are available in the results partition of the ACS storage device:
  - Event log: /mnt/acs_results/tmp2/eventlog.log
  - PCRs: /mnt/acs_results/tmp2/pcr.log
 
-The steps below explain how to verify key requirements defined in the TCG Firmware Profile specification.
+The steps below explain how to verify some key requirements defined in the TCG Firmware Profile specification.  The measurements for a given system are highly platform-specific, and the TCG Firmware Profile specification should be the key specification followed.
 
 #### Step 1 - Verify the cumulative SHA256 measurements from the event log matches the TPM PCRs 0-7
 
@@ -420,6 +420,31 @@ See example below for the measurement of the SecureBoot variable:
     UnicodeName: SecureBoot
     VariableData: "01"
 </pre>
+
+#### Step 6 - UEFI BootOrder and Boot#### variables
+
+If the UEFI BootOrder and Boot#### variables are used by the firmware, they must be measured into PCR[1] with event types EV_EFI_VARIABLE_BOOT or EV_EFI_VARIABLE_BOOT2.
+
+#### Step 7 - Verify boot attempt measurements
+
+Platform firmware must record each boot attempt into PCR[4] using the event type EV_ACTION with the action string “Calling EFI Application from Boot Option”.
+
+#### Step 8 - Verify PCR[1] measurements
+
+Measurements of security relevant configuration data go into PCR[1].
+
+This should include configuration data such as the security lifecycle state of a system.
+
+Security relevant SMBIOS structures must be measured into PCR[1] using event type EV_EFI_HANDOFF_TABLES.  This should include
+
+SMBIOS structures that contain static configuration information (e.g. Platform Manufacturer Enterprise Number
+assigned by IANA, platform model number, Vendor and Device IDs for each SMBIOS table) that is relevant to
+the security of the platform MUST be measured using the event type EV_EFI_HANDOFF_TABLES as described
+in Section 9.4.1 (Event Types).
+
+#### Step 9 - Verify EV_SEPARATOR measurements
+
+The EV_SEPARATOR event delineates the point in platform boot where the platform firmware relinquishes control of making measurements into the TPM. There must be an EV_SEPARATOR measurement for each PCR[0] through PCR[7].
 
 
 ## License
